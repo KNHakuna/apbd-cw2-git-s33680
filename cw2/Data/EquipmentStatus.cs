@@ -1,4 +1,5 @@
 ﻿
+
 public enum EquipmentStatus
 {
     Available,
