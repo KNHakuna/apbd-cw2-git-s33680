@@ -40,6 +40,26 @@ public class RentalManager
         Console.WriteLine($"{rental.Equipment.Name} returned by {rental.User.FirstName} {rental.User.LastName}. Penalty: {rental.Penalty:C}");
     }
 
+    public void MarkEquipmentUnavailable(Equipment equipment)
+    {
+        if(equipment.Status == EquipmentStatus.Rented)
+        {
+            Console.WriteLine($"{equipment.Name} is currently rented and cannot be marked as unavailable.");
+            return;
+        }
+        if (equipment.Status == EquipmentStatus.Unavailable)
+        {
+            Console.WriteLine($"{equipment.Name} is already marked as unavailable due to: {equipment.UnavailableReason}");
+            return;
+        }
+
+        Console.WriteLine($"Enter reason for marking {equipment.Name} as unavailable:");
+        string reason = Console.ReadLine();
+        equipment.Status = EquipmentStatus.Unavailable;
+        equipment.UnavailableReason = reason;
+        Console.WriteLine($"{equipment.Name} is now marked as unavailable due to: {reason}");
+    }
+
     private int GetLimit(User user)
     {
         switch (user.Type)
