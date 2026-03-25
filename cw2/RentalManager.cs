@@ -102,4 +102,41 @@ public class RentalManager
     {
         return equipments.Where(e => e.Status == EquipmentStatus.Available).ToList();
     }
+
+    public List<Rental> GetOverdueRentals()
+    {
+        return rentals.Where(r => r.ReturnDate == null && r.Deadline < DateTime.Now).ToList();
+    }
+
+    public void PrintReport()
+    {
+        int totalRentals = rentals.Count;
+        int activeRentals = rentals.Count(r => r.ReturnDate == null);
+        int returnedRentals = rentals.Count(r => r.ReturnDate != null);
+        int overdueRentals = rentals.Count(r => r.ReturnDate == null && r.Deadline < DateTime.Now);
+        double totalPenalties = rentals.Sum(r => r.Penalty);
+        int totalEquipments = equipments.Count;
+        int availableEquipments = equipments.Count(e => e.Status == EquipmentStatus.Available);
+        int rentedEquipments = equipments.Count(e => e.Status == EquipmentStatus.Rented);
+        int unavailableEquipments = equipments.Count(e => e.Status == EquipmentStatus.Unavailable);
+        int totalUsers = users.Count;
+        int studentUsers = users.Count(u => u.Type == UserType.Student);
+        int employeeUsers = users.Count(u => u.Type == UserType.Employee);
+        Console.WriteLine("|*|*|*|*|*|*|*|*| Rental Report: |*|*|*|*|*|*|*|*|");
+        Console.WriteLine("1.Rentals");
+        Console.WriteLine($" -Total rentals: {totalRentals}");
+        Console.WriteLine($" -Active rentals: {activeRentals}");
+        Console.WriteLine($" -Returned rentals: {returnedRentals}");
+        Console.WriteLine($" -Overdue rentals: {overdueRentals}");
+        Console.WriteLine($" -Total penalties: {totalPenalties}");
+        Console.WriteLine("2.Equipments");
+        Console.WriteLine($" -Total equipments: {totalEquipments}");
+        Console.WriteLine($" -Available equipments: {availableEquipments}");
+        Console.WriteLine($" -Rented equipments: {rentedEquipments}");
+        Console.WriteLine($" -Unavailable equipments: {unavailableEquipments}");
+        Console.WriteLine("3.Users");
+        Console.WriteLine($" -Total users: {totalUsers}");
+        Console.WriteLine($" -Student users: {studentUsers}");
+        Console.WriteLine($" -Employee users: {employeeUsers}");
+    }
 }
