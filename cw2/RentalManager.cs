@@ -3,6 +3,10 @@
 public class RentalManager
 {
     private List<Rental> rentals = new List<Rental>();
+    private List<Equipment> equipments = new List<Equipment>();
+    private List<User> users = new List<User>();
+
+
     public Rental RentEquipment(User user, Equipment equipment)
     {
         if(equipment.Status != EquipmentStatus.Available)
@@ -62,5 +66,20 @@ public class RentalManager
     public List<Rental> GetUserRentals(User user)
     {
         return rentals.Where(r => r.User.Id == user.Id).ToList();
+    }
+
+    public void AddUser(User user)
+    {
+        users.Add(user);
+    }
+
+    public void AddEquipment(Equipment equipment)
+    {
+        equipments.Add(equipment);
+    }
+
+    public List<Equipment> GetAvailableEquipments()
+    {
+        return equipments.Where(e => e.Status == EquipmentStatus.Available).ToList();
     }
 }
