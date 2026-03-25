@@ -15,33 +15,4 @@ public class Equipment
         Name = name;
         Status = EquipmentStatus.Available;
     }
-
-    public void Rent()
-    {
-        if (Status == EquipmentStatus.Rented)
-        {
-            Console.WriteLine($"{Name} is already rented.");
-            return;
-        }
-        if (Status == EquipmentStatus.Unavailable)
-        {
-            Console.WriteLine($"{Name} is unavailable");
-            return;
-        }
-        Status = EquipmentStatus.Rented;
-        Console.WriteLine($"{Name} rented.");
-    }
-
-    public void Return()
-    {
-        if (Status == EquipmentStatus.Available)
-        {
-            Console.WriteLine($"{Name} is already available.");
-            return;
-        }
-        Status = EquipmentStatus.Available;
-        Console.WriteLine($"{Name} returned.");
-    }
-
-
 }
