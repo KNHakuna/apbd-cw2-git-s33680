@@ -98,6 +98,20 @@ public class RentalManager
         equipments.Add(equipment);
     }
 
+    public List<User> GetAllUsers()
+    {
+        return users;
+    }
+
+    public List<Rental> GetAllRentals()
+    {
+        return rentals;
+    }
+
+    public List<Equipment> GetAllEquipments() { 
+        return equipments;
+    }
+
     public List<Equipment> GetAvailableEquipments()
     {
         return equipments.Where(e => e.Status == EquipmentStatus.Available).ToList();
