@@ -8,6 +8,7 @@ public class Rental
     public DateTime RentalDate { get; set; }
     public DateTime Deadline { get; set; }
     public DateTime? ReturnDate { get; set; }
+    public double Penalty { get; set; }
 
     private static int nextId = 1;
     public Rental(Equipment equipment, User user)

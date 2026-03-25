@@ -31,7 +31,9 @@ public class RentalManager
             return;
         }
         rental.Returning();
+        rental.Penalty = GetPenalty(rental);
         rental.Equipment.Status = EquipmentStatus.Available;
+        Console.WriteLine($"{rental.Equipment.Name} returned by {rental.User.FirstName} {rental.User.LastName}. Penalty: {rental.Penalty:C}");
     }
 
     private int GetLimit(User user)
@@ -45,6 +47,16 @@ public class RentalManager
             default:
                 return 0;
         }
+    }
+
+    private double GetPenalty(Rental rental)
+    {
+        if (rental.ReturnDate == null || (rental.ReturnDate <= rental.Deadline))
+        {
+            return 0;
+        }
+        var daysLate = (rental.ReturnDate.Value - rental.Deadline).Days;
+        return daysLate * 12.50;
     }
 
     public List<Rental> GetUserRentals(User user)
